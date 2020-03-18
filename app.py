@@ -14,7 +14,6 @@ from plotly.subplots import make_subplots
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
-app.title=tabtitle
 
 fig = make_subplots(rows=1, cols=3)
 
