@@ -7,7 +7,9 @@ import numpy as np
 from dash.dependencies import Input, Output
 from plotly.subplots import make_subplots
 
-
+#heroku login
+#heroku logs --tail -a eliottesting
+#https://medium.com/@david.gagne/set-up-a-custom-domain-for-your-heroku-application-using-google-domains-guaranteed-a2b2ff934f97
 #https://towardsdatascience.com/a-gentle-invitation-to-interactive-visualization-with-dash-a200427ccce9
 #https://dash.plot.ly/getting-started
 # Deploy on https://www.heroku.com/students
@@ -40,7 +42,7 @@ app.layout = html.Div(children=[
         dcc.Input(id="transmission", type="number", value=2, min=0, max=5, step=0.1),
 
         html.Label('Capacity Surge'),
-        dcc.Input(id="capacity", type="number", value=1, min=0, max=2, step=0.1)
+        dcc.Input(id="capacity", type="number", value=1, min=0, max=10, step=0.1)
     ], style={'display':'flex', 'justify-content':'space-around', 'flex-wrap':'wrap'}),
     # https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 
@@ -73,7 +75,7 @@ def update_figure(CFR,CCFR,criticalFraction,infectionPeriod,testingRate,transmis
     for t in np.arange(0, 365):
         newInfections = min((I - H)*(rho/infectionPeriod * S/N), S) #Improve and add distancing
         newHospitalizations = newInfections*criticalFraction
-        newDeaths = H*normalCaseFatalityRate*notoverwhelmed + H*crisisCaseFatalityRate*(not notoverwhelmed)
+        newDeaths = I*normalCaseFatalityRate*notoverwhelmed + I*crisisCaseFatalityRate*(not notoverwhelmed)
         newRecoveries = (I - newDeaths) * 1/infectionPeriod
         
         I = I + newInfections - newRecoveries - newDeaths
